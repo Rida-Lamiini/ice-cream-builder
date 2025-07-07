@@ -1,152 +1,159 @@
-import React, { createContext, useContext, useReducer } from "react";
-import type { ReactNode } from "react";
+"use client";
 
-import type {
-  IceCreamState,
-  IceCreamContextType,
-  IceCreamItem,
-  CartItem,
-} from "@/types/ice-cream";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  type ReactNode,
+} from "react";
 
-// Initial state
+export interface IceCreamState {
+  items: Record<string, number>;
+  totalPrice: number;
+  basketCount: number;
+  showSuccessMessage: boolean;
+}
+
+export type IceCreamAction =
+  | { type: "INCREMENT_ITEM"; payload: string }
+  | { type: "DECREMENT_ITEM"; payload: string }
+  | { type: "ADD_TO_BASKET" }
+  | { type: "RESET" }
+  | { type: "HIDE_SUCCESS_MESSAGE" };
+
 const initialState: IceCreamState = {
-  items: [],
+  items: {},
   totalPrice: 0,
   basketCount: 0,
+  showSuccessMessage: false,
 };
 
-// Action types
-type IceCreamAction =
-  | { type: "ADD_ITEM"; payload: IceCreamItem }
-  | { type: "REMOVE_ITEM"; payload: string }
-  | { type: "RESET_CART" }
-  | { type: "ADD_TO_BASKET" };
+// Import ice cream data for price calculation
+import { iceCreamData } from "@/data/ice-cream-items";
 
-// Reducer
+const allItems = [
+  ...iceCreamData.tastes,
+  ...iceCreamData.sauces,
+  ...iceCreamData.nuts,
+];
+
 function iceCreamReducer(
   state: IceCreamState,
   action: IceCreamAction
 ): IceCreamState {
   switch (action.type) {
-    case "ADD_ITEM": {
-      const existingItemIndex = state.items.findIndex(
-        (item) => item.id === action.payload.id
+    case "INCREMENT_ITEM": {
+      const newItems = {
+        ...state.items,
+        [action.payload]: (state.items[action.payload] || 0) + 1,
+      };
+
+      const totalPrice = Object.entries(newItems).reduce(
+        (total, [itemId, quantity]) => {
+          const item = allItems.find((item) => item.id === itemId);
+          return total + (item ? item.price * quantity : 0);
+        },
+        0
       );
-
-      if (existingItemIndex !== -1) {
-        const updatedItems = state.items.map((item, index) =>
-          index === existingItemIndex
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-
-        return {
-          ...state,
-          items: updatedItems,
-          totalPrice: state.totalPrice + action.payload.price,
-        };
-      }
-
-      const newItem: CartItem = { ...action.payload, quantity: 1 };
 
       return {
         ...state,
-        items: [...state.items, newItem],
-        totalPrice: state.totalPrice + newItem.price,
+        items: newItems,
+        totalPrice,
+        showSuccessMessage: false,
       };
     }
 
-    case "REMOVE_ITEM": {
-      const existingItemIndex = state.items.findIndex(
-        (item) => item.id === action.payload
-      );
+    case "DECREMENT_ITEM": {
+      const currentQuantity = state.items[action.payload] || 0;
+      if (currentQuantity <= 0) return state;
 
-      if (existingItemIndex === -1) return state;
+      const newItems = {
+        ...state.items,
+        [action.payload]: currentQuantity - 1,
+      };
 
-      const existingItem = state.items[existingItemIndex];
-
-      if (existingItem.quantity > 1) {
-        const updatedItems = state.items.map((item, index) =>
-          index === existingItemIndex
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-
-        return {
-          ...state,
-          items: updatedItems,
-          totalPrice: state.totalPrice - existingItem.price,
-        };
+      // Remove item if quantity becomes 0
+      if (newItems[action.payload] === 0) {
+        delete newItems[action.payload];
       }
 
-      const updatedItems = state.items.filter(
-        (_, index) => index !== existingItemIndex
+      const totalPrice = Object.entries(newItems).reduce(
+        (total, [itemId, quantity]) => {
+          const item = allItems.find((item) => item.id === itemId);
+          return total + (item ? item.price * quantity : 0);
+        },
+        0
       );
 
       return {
         ...state,
-        items: updatedItems,
-        totalPrice: state.totalPrice - existingItem.price,
+        items: newItems,
+        totalPrice,
+        showSuccessMessage: false,
       };
     }
 
-    case "RESET_CART":
-      return {
-        ...state,
-        items: [],
-        totalPrice: 0,
-      };
+    case "ADD_TO_BASKET": {
+      if (state.totalPrice === 0) return state;
 
-    case "ADD_TO_BASKET":
       return {
-        ...state,
+        ...initialState,
         basketCount: state.basketCount + 1,
+        showSuccessMessage: true,
       };
+    }
+
+    case "RESET": {
+      return {
+        ...state,
+        items: {},
+        totalPrice: 0,
+        showSuccessMessage: false,
+      };
+    }
+
+    case "HIDE_SUCCESS_MESSAGE": {
+      return {
+        ...state,
+        showSuccessMessage: false,
+      };
+    }
 
     default:
       return state;
   }
 }
 
-// Context
-const IceCreamContext = createContext<IceCreamContextType | undefined>(
-  undefined
-);
+const IceCreamContext = createContext<{
+  state: IceCreamState;
+  dispatch: React.Dispatch<IceCreamAction>;
+} | null>(null);
 
-// Provider
-export const IceCreamProvider = ({ children }: { children: ReactNode }) => {
+export function IceCreamProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(iceCreamReducer, initialState);
 
-  const addItem = (item: IceCreamItem) =>
-    dispatch({ type: "ADD_ITEM", payload: item });
-
-  const removeItem = (itemId: string) =>
-    dispatch({ type: "REMOVE_ITEM", payload: itemId });
-
-  const resetCart = () => dispatch({ type: "RESET_CART" });
-
-  const addToBasket = () => dispatch({ type: "ADD_TO_BASKET" });
-
-  const value: IceCreamContextType = {
-    state,
-    addItem,
-    removeItem,
-    resetCart,
-    addToBasket,
-  };
+  // Auto-hide success message after 3 seconds
+  React.useEffect(() => {
+    if (state.showSuccessMessage) {
+      const timer = setTimeout(() => {
+        dispatch({ type: "HIDE_SUCCESS_MESSAGE" });
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [state.showSuccessMessage]);
 
   return (
-    <IceCreamContext.Provider value={value}>
+    <IceCreamContext.Provider value={{ state, dispatch }}>
       {children}
     </IceCreamContext.Provider>
   );
-};
+}
 
-// Hook
-export const useIceCream = (): IceCreamContextType => {
+export function useIceCream() {
   const context = useContext(IceCreamContext);
   if (!context) {
     throw new Error("useIceCream must be used within an IceCreamProvider");
   }
   return context;
-};
+}
