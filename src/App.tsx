@@ -1,4 +1,5 @@
 import { IceCreamProvider } from "@/context/IceCreamContext";
+import IceCreamBuilder from "./components/IceCreamBuilder";
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
               and nuts!
             </p>
           </header>
+
+          <IceCreamBuilder />
         </div>
       </div>
     </IceCreamProvider>
