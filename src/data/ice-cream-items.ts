@@ -1,79 +1,80 @@
-import type { IceCreamItem } from "@/types/ice-cream";
+import type { IceCreamData } from "@/types/ice-cream";
 
-export const iceCreamItems: IceCreamItem[] = [
-  // Tastes
-  {
-    id: "caramel-taste",
-    name: "Caramel",
-    price: 7,
-    category: "taste",
-    color: "#ed7611",
-  },
-  {
-    id: "chocolate-taste",
-    name: "Chocolate",
-    price: 8,
-    category: "taste",
-    color: "#8b4513",
-  },
-  {
-    id: "vanilla-taste",
-    name: "Vanilla",
-    price: 6,
-    category: "taste",
-    color: "#f5f5dc",
-  },
-  {
-    id: "strawberry-taste",
-    name: "Strawberry",
-    price: 7,
-    category: "taste",
-    color: "#ff69b4",
-  },
-
-  // Sauces
-  {
-    id: "chocolate-sauce",
-    name: "Chocolate Sauce",
-    price: 3,
-    category: "sauce",
-    color: "#654321",
-  },
-  {
-    id: "caramel-sauce",
-    name: "Caramel Sauce",
-    price: 3,
-    category: "sauce",
-    color: "#d2691e",
-  },
-  {
-    id: "strawberry-sauce",
-    name: "Strawberry Sauce",
-    price: 3,
-    category: "sauce",
-    color: "#ff1493",
-  },
-
-  // Nuts
-  {
-    id: "almonds",
-    name: "Almonds",
-    price: 4,
-    category: "nut",
-    color: "#deb887",
-  },
-  {
-    id: "walnuts",
-    name: "Walnuts",
-    price: 4,
-    category: "nut",
-    color: "#8b4513",
-  },
-  {
-    id: "pistachios",
-    name: "Pistachios",
-    price: 5,
-    category: "nut",
-    color: "#9acd32",
-  },
-];
+export const iceCreamData: IceCreamData = {
+  tastes: [
+    {
+      id: "caramel",
+      name: "Caramel Taste",
+      price: 7,
+      color: "#D2691E",
+      category: "taste",
+    },
+    {
+      id: "vanilla",
+      name: "Vanilla Taste",
+      price: 6,
+      color: "#F5DEB3",
+      category: "taste",
+    },
+    {
+      id: "chocolate",
+      name: "Chocolate Taste",
+      price: 8,
+      color: "#8B4513",
+      category: "taste",
+    },
+    {
+      id: "strawberry",
+      name: "Strawberry Taste",
+      price: 7,
+      color: "#FFB6C1",
+      category: "taste",
+    },
+  ],
+  sauces: [
+    {
+      id: "chocolate-sauce",
+      name: "Chocolate Sauce",
+      price: 3,
+      color: "#654321",
+      category: "sauce",
+    },
+    {
+      id: "caramel-sauce",
+      name: "Caramel Sauce",
+      price: 3,
+      color: "#CD853F",
+      category: "sauce",
+    },
+    {
+      id: "berry-sauce",
+      name: "Berry Sauce",
+      price: 4,
+      color: "#DC143C",
+      category: "sauce",
+    },
+  ],
+  nuts: [
+    {
+      id: "almonds",
+      name: "Almonds",
+      price: 5,
+      color: "#DEB887",
+      category: "nut",
+    },
+    {
+      id: "walnuts",
+      name: "Walnuts",
+      price: 6,
+      color: "#8B4513",
+      category: "nut",
+    },
+    {
+      id: "pistachios",
+      name: "Pistachios",
+      price: 7,
+      color: "#9ACD32",
+      category: "nut",
+    },
+  ],
+};
