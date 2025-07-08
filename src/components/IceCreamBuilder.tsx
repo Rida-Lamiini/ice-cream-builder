@@ -9,9 +9,18 @@ import { EmptyState } from "./features/EmptyState";
 import { useIceCream } from "@/context/IceCreamContext";
 import { iceCreamData } from "@/data/ice-cream-items";
 
-export function IceCreamBuilder() {
+function IceCreamBuilder() {
   const { state } = useIceCream();
   const hasItems = state.totalPrice > 0;
+
+  // Example validation rules - you can customize these
+  const validationRules = {
+    maxFlavors: 3,
+    maxSauces: 2,
+    maxNuts: 2,
+    minTotal: 5,
+    maxTotal: 100,
+  };
 
   return (
     <div className="min-h-screen">
@@ -63,8 +72,8 @@ export function IceCreamBuilder() {
             icon={<Nut className="h-5 w-5 text-orange-500" />}
           />
 
-          {/* Basket Summary */}
-          <BasketSummary />
+          {/* Advanced Basket Summary with Validation */}
+          <BasketSummary validationRules={validationRules} />
         </div>
       </div>
     </div>
