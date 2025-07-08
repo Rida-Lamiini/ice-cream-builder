@@ -1,139 +1,166 @@
 # 🍦 Interactive Ice Cream Builder
 
-A modern, interactive React application that allows users to customize their own ice cream rolls by selecting flavors, sauces, and nuts with real-time pricing and smooth animations.
+A modern, interactive React application that allows users to customize their own ice cream rolls by selecting flavors, sauces, and nuts — with real-time pricing and smooth animations.
+
+---
 
 ## 🎯 Project Overview
 
-This project was built as an interview exercise to demonstrate advanced React development skills, including state management, component architecture, animations, and scalable design patterns.
+This project was built as part of an interview exercise to demonstrate advanced React development skills, including state management, component architecture, animations, and scalable design patterns.
 
-### ✨ Key Features
+---
 
-- **Interactive Customization**: Add/remove ice cream flavors, sauces, and nuts
-- **Real-time Pricing**: Dynamic price calculation with instant updates
-- **Smooth Animations**: Framer Motion powered transitions and micro-interactions
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Type Safety**: Full TypeScript integration
-- **Scalable Architecture**: Easy to extend with new items and features
+## ✨ Key Features
+
+- ✅ **Interactive Customization** — Add/remove ice cream flavors, sauces, and nuts  
+- 💰 **Real-time Pricing** — Dynamic total calculation that updates instantly  
+- 🎞️ **Smooth Animations** — Powered by Framer Motion for engaging transitions  
+- 📱 **Responsive Design** — Mobile-first layout using Tailwind CSS  
+- 🔒 **Type Safety** — Built entirely with TypeScript  
+- 🧱 **Scalable Architecture** — Easy to extend and maintain  
+
+---
 
 ## 🚀 Live Demo
 
-\`\`\`bash
+> 💻 Coming soon: [Live on Vercel](https://your-demo-link.com)
 
+---
+
+## 🛠️ Getting Started
+
+```bash
 # Clone the repository
-
 git clone https://github.com/Rida-Lamiini/ice-cream-builder.git
 
 # Navigate to project directory
-
 cd ice-cream-builder
 
 # Install dependencies
-
 npm install
 
 # Start development server
-
 npm run dev
-\`\`\`
+```
 
-Visit \`http://localhost:5173\` to see the application in action.
+> Visit [http://localhost:5173](http://localhost:5173) to view the app locally.
 
-## 🛠️ Tech Stack
+---
 
-- **Frontend Framework**: React 18 with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
-- **Animations**: Framer Motion
-- **State Management**: React Context API + useReducer
-- **Icons**: Lucide React
+## 🧰 Tech Stack
+
+| Tool            | Purpose                           |
+|----------------|------------------------------------|
+| **React 18**    | Frontend Framework                 |
+| **TypeScript**  | Type-safe development              |
+| **Vite**        | Build tool for fast development    |
+| **Tailwind CSS**| Utility-first styling              |
+| **shadcn/ui**   | Accessible UI components           |
+| **Framer Motion** | Animations and transitions       |
+| **Lucide React**| Icon library                       |
+| **Context API + useReducer** | State management      |
+
+---
 
 ## 📁 Project Structure
 
-\`\`\`
+```bash
 src/
 ├── components/
-│ ├── ui/ # shadcn/ui components
-│ │ ├── button.tsx
-│ │ ├── card.tsx
-│ │ ├── badge.tsx
-│ │ └── separator.tsx
-│ ├── features/ # Feature-specific components
-│ │ ├── ItemRow.tsx # Individual item with counter
-│ │ ├── ItemSection.tsx # Category sections
-│ │ ├── BasketSummary.tsx # Checkout component
-│ │ ├── Header.tsx # App header
-│ │ ├── PriceBreakdown.tsx # Order summary
-│ │ └── EmptyState.tsx # Welcome screen
-│ └── IceCreamBuilder.tsx # Main component
+│   ├── ui/                  # Shared UI components (shadcn/ui)
+│   │   ├── button.tsx
+│   │   ├── card.tsx
+│   │   ├── badge.tsx
+│   │   └── separator.tsx
+│   ├── features/            # Feature-specific components
+│   │   ├── ItemRow.tsx
+│   │   ├── ItemSection.tsx
+│   │   ├── BasketSummary.tsx
+│   │   ├── Header.tsx
+│   │   ├── PriceBreakdown.tsx
+│   │   └── EmptyState.tsx
+│   └── IceCreamBuilder.tsx # Main layout
 ├── context/
-│ └── IceCreamContext.tsx # Global state management
+│   └── IceCreamContext.tsx  # Global state
 ├── data/
-│ └── ice-cream-items.ts # Product data
+│   └── ice-cream-items.ts   # Static item data
 ├── types/
-│ └── ice-cream.ts # TypeScript definitions
+│   └── ice-cream.ts         # Type definitions
 ├── hooks/
-│ └── useIceCreamValidation.ts # Custom validation hook
+│   └── useIceCreamValidation.ts
 ├── lib/
-│ └── utils.ts # Utility functions
-└── App.tsx # Root component
-\`\`\`
+│   └── utils.ts
+└── App.tsx                  # Root component
+```
+
+---
 
 ## 🔧 Development Scripts
 
-\`\`\`bash
+```bash
+# Start development server
+npm run dev
 
-# Development
+# Build for production
+npm run build
 
-npm run dev # Start development server
-npm run build # Build for production
-npm run preview # Preview production build
-npm run lint # Run ESLint
+# Preview production build
+npm run preview
 
-# Type Checking
+# Run ESLint
+npm run lint
 
-npm run type-check # TypeScript type checking
-\`\`\`
+# Type checking
+npm run type-check
+```
 
-## 📊 Features Breakdown
+---
 
-### ✅ Implemented Features
+## ✅ Features Checklist
 
-- [x] Interactive item counters with +/- buttons
-- [x] Real-time price calculation
-- [x] Smooth animations and transitions
-- [x] Responsive mobile design
-- [x] TypeScript integration
-- [x] Basket functionality with reset
-- [x] Success feedback messages
-- [x] Color-coded item categories
+- [x] Interactive item counters with +/– buttons  
+- [x] Real-time total price calculation  
+- [x] Smooth animations for interaction feedback  
+- [x] Mobile-first responsive layout  
+- [x] Basket functionality with reset state  
+- [x] Success toast/message on basket addition  
+- [x] Category styling with color differentiation  
+- [x] Componentized architecture using clean patterns  
+
+---
 
 ## 🎨 Design System
 
-### Color Palette
+### 🎨 Color Palette
 
-- **Primary**: Orange (#FF6B35) - Warm, appetizing
-- **Secondary**: Pink (#FF8E9B) - Playful, sweet
-- **Accent**: Purple (#6C5CE7) - Premium feel
-- **Neutral**: Gray scale for text and backgrounds
+| Color      | Hex       | Purpose          |
+|------------|-----------|------------------|
+| **Primary**| `#FF6B35` | Appetizing orange |
+| **Secondary**| `#FF8E9B` | Playful pink     |
+| **Accent** | `#6C5CE7` | Premium purple   |
+| **Neutral**| Grayscale | Text & background|
 
-### Typography
+### 🖋 Typography
 
-- **Headings**: Bold, modern sans-serif
-- **Body**: Clean, readable font stack
-- **Interactive**: Medium weight for buttons
+- **Headings**: Bold modern sans-serif  
+- **Body**: Clean, readable system font stack  
+- **Buttons**: Medium weight for clarity  
 
-### Spacing
+### 📏 Spacing System
 
-- **Consistent Scale**: 4px base unit (4, 8, 12, 16, 20, 24...)
-- **Responsive**: Adaptive spacing for different screen sizes
+- **Base unit**: 4px scale (e.g., 4, 8, 12, 16, 20…)  
+- **Responsive padding/margin** for all screen sizes  
+
+---
 
 ## 🙏 Acknowledgments
 
-- **shadcn/ui** for beautiful, accessible components
-- **Framer Motion** for smooth animations
-- **Tailwind CSS** for rapid styling
-- **Lucide React** for consistent icons
-- **Vite** for lightning-fast development
+- [shadcn/ui](https://ui.shadcn.com)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
+- [Vite](https://vitejs.dev/)
 
-**Built with ❤️ and lots of ☕ for the love of 🍦**
+---
+
+**Built with ❤️ and lots of ☕ — for the love of 🍦**
